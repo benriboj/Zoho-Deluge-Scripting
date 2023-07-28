@@ -1,0 +1,30 @@
+getrecord = zoho.crm.getRecordById("Deals",id);
+stage = getrecord.containValue("Closed Lost");
+if(stage != TRUE)
+{
+	id_update = zoho.crm.updateRecord("Deals",id,{"Stage":"Closed Won"});
+	sendmail
+	[
+		from :zoho.adminuserid
+		to :"salesforceone8157@gmail.com"
+		subject :"Acceptance of Proposal"
+		message :"Dear Sales Executive,<br><br>I am pleased to inform you that the client has accepted the proposal submitted by our company. This is great news for us and a testament to your hard work and dedication towards this proposal. We look forward to working with the client and delivering on our commitments.<br>Thank you for your efforts and congratulations on a job well done.For more detail on the deal click on the below link<br><br>" + 'https://one.zoho.com/zohoone/demo11cloudq/home/cxapp/crm/org799219292/tab/Potentials/' + id + "<br><br><br><img src=https://devcloudquality.zohosites.com/cloudQuality%20logo.png width = 100 height= 80 ><br>In case of any concerns,<br>Kindly consult with your respective Manager.<br>Email : User11@demo11.cloudq.net "
+	]
+	response = Map();
+	headers = Map();
+	response.put("headers",headers);
+	body = " <center><h2 style= color:grey;><img src=https://devcloudquality.zohosites.com/cloudQuality%20logo.png width = 300 height= 250 ><br><br>Thank You for your response<br></h2><h3 style= color:grey;>In case of any issues, Kindly contact:<br>CloudQuality Information Technology L.L.C<br>Office No. 4F-86, AL Khaimah Building II,<br> Al Barsha First, Dubai, UAE.<br>Phone : +971 52 137 9951</h3></center>";
+	response.put("body",body);
+	response.put("Content-Type","text/html; charset=utf-8");
+	return {"crmAPIResponse":response};
+}
+else
+{
+	response = Map();
+	headers = Map();
+	response.put("headers",headers);
+	body = " <center><h2 style= color:grey;><img src=https://devcloudquality.zohosites.com/cloudQuality%20logo.png width = 300 height= 250 ><br><br>Your response has already been recorded<br></h2><h3 style= color:grey;>In case of any issues, Kindly contact:<br>CloudQuality Information Technology L.L.C<br>Office No. 4F-86, AL Khaimah Building II,<br> Al Barsha First, Dubai, UAE.<br>Phone : +971 52 137 9951</h3></center>";
+	response.put("body",body);
+	response.put("Content-Type","text/html; charset=utf-8");
+	return {"crmAPIResponse":response};
+}
